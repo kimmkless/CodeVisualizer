@@ -1,0 +1,48 @@
+QMainWindow {
+    background-color: #f0f0f0;
+}
+
+QTextEdit, QPlainTextEdit {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 12pt;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    border: 1px solid #444444;
+}
+
+QPushButton {
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 3px;
+}
+
+QPushButton:hover {
+    background-color: #0063b1;
+}
+
+QPushButton:pressed {
+    background-color: #004e8c;
+}
+
+QLabel {
+    font-family: "Microsoft YaHei", "SimHei", sans-serif;
+    font-size: 10pt;
+}
+
+QGraphicsView {
+    border: 1px solid #aaaaaa;
+    background-color: white;
+}
+
+QSplitter::handle {
+    background-color: #c0c0c0;
+}
+
+QToolTip {
+    border: 1px solid #767676;
+    background-color: #f0f0f0;
+    color: black;
+    padding: 2px;
+} 
