@@ -1,0 +1,130 @@
+代码可视化工具使用说明
+===========================
+
+本软件用于可视化C++函数代码的执行过程，将代码转换为直观的动画或图片展示。
+
+一、软件安装
+-----------
+1. 确保您的系统已安装Qt环境（建议Qt 5.12或更高版本）
+2. 使用批处理文件`build.bat`构建项目
+3. 构建成功后，运行生成的`CodeVisualizer.exe`文件
+
+二、基本使用
+-----------
+1. 在左侧代码编辑区输入一个完整的C++函数
+   - 必须是语法正确的C++函数
+   - 包含完整的函数签名和函数体
+   - 例如：void bubbleSort(int arr[], int n) { ... }
+
+2. 选择可视化类型
+   - 自动检测：软件会尝试根据代码特征选择合适的可视化类型
+   - 数组/向量：适合处理数组、向量等一维数据的算法
+   - 链表：适合处理链表操作的算法
+   - 树结构：适合处理二叉树、搜索树等树结构的算法
+   - 图结构：适合处理图算法
+   - 矩阵：适合处理二维数组、矩阵操作的算法
+
+3. 点击"运行"按钮开始可视化过程
+   - 软件会分析代码并创建相应的可视化动画
+   - 右侧区域将显示代码的可视化效果
+
+4. 控制可视化过程
+   - 单步执行：逐步执行代码，每次显示一个状态
+   - 调整动画速度：使用速度滑块控制动画播放速度
+   - 停止：终止当前执行
+
+三、示例代码
+-----------
+以下是一些可以尝试的示例代码：
+
+1. 冒泡排序（数组可视化）：
+```
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n-1; i++) {
+        for (int j = 0; j < n-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}
+```
+
+2. 二分查找（数组可视化）：
+```
+int binarySearch(int arr[], int n, int target) {
+    int left = 0;
+    int right = n - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] == target)
+            return mid;
+        
+        if (arr[mid] < target)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    
+    return -1;
+}
+```
+
+3. 二叉树中序遍历（树结构可视化）：
+```
+void inorderTraversal(TreeNode* root) {
+    if (root == nullptr) {
+        return;
+    }
+    
+    inorderTraversal(root->left);
+    visit(root->value);
+    inorderTraversal(root->right);
+}
+```
+
+4. 广度优先搜索（图结构可视化）：
+```
+void bfs(Graph graph, int startVertex) {
+    bool visited[MAX_VERTICES] = {false};
+    queue<int> q;
+    
+    visited[startVertex] = true;
+    q.push(startVertex);
+    
+    while (!q.empty()) {
+        int vertex = q.front();
+        q.pop();
+        visit(vertex);
+        
+        for (int i = 0; i < graph.numVertices; i++) {
+            if (graph.adjMatrix[vertex][i] && !visited[i]) {
+                visited[i] = true;
+                q.push(i);
+            }
+        }
+    }
+}
+```
+
+四、注意事项
+-----------
+1. 本软件目前不会实际执行您的代码，而是通过分析代码结构创建模拟的可视化效果
+2. 由于功能限制，目前主要支持常见算法和数据结构的可视化
+3. 复杂的自定义数据结构可能无法正确可视化
+4. 请确保输入的是完整的函数定义，包含函数签名和函数体
+
+五、常见问题
+-----------
+Q: 为什么我的代码没有正确可视化？
+A: 请确保代码是完整的C++函数，并且使用了软件支持的数据结构。软件会尝试识别代码中的数据结构和算法类型。
+
+Q: 支持哪些数据结构的可视化？
+A: 目前主要支持数组、链表、二叉树、图和矩阵这几种基本数据结构。
+
+Q: 代码太长会有问题吗？
+A: 过长的代码可能会影响可视化效果，建议输入简洁的函数代码。 

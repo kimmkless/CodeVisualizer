@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(executor, &CodeExecutor::executionFinished, this, &MainWindow::onExecutionComplete);
     connect(executor, &CodeExecutor::executionError, this, &MainWindow::onExecutionError);
     
-    statusBar()->showMessage("准备就绪。请输入C++函数代码，然后单击"运行"按钮。");
+    statusBar()->showMessage(QString::fromUtf8("准备就绪。请输入C++函数代码，然后单击运行按钮。"));
 }
 
 MainWindow::~MainWindow()

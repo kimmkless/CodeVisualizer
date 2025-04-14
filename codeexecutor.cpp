@@ -189,7 +189,10 @@ void CodeExecutor::analyzeCode()
                    code.contains("vertex", Qt::CaseInsensitive);
     bool hasStack = code.contains("stack", Qt::CaseInsensitive) || 
                    (code.contains("push", Qt::CaseInsensitive) && code.contains("pop", Qt::CaseInsensitive));
-    bool hasQueue = (code.contains("queue", Qt::CaseInsensitive) && (hasTree || hasGraph));
+    bool hasQueue = (code.contains("queue", Qt::CaseInsensitive) || 
+                    (code.contains("enqueue", Qt::CaseInsensitive) && 
+                     code.contains("dequeue", Qt::CaseInsensitive))) && 
+                    (hasTree || hasGraph);
     
     analysisResult["hasArray"] = hasArray;
     analysisResult["hasTree"] = hasTree;
@@ -422,6 +425,11 @@ void CodeExecutor::mockExecution()
         emit executionStep(initialState);
     }
     
+    // 检查是否是树操作
+    bool isTreeOperation = (code.contains("node", Qt::CaseInsensitive) &&
+                           code.contains("left", Qt::CaseInsensitive) &&
+                           code.contains("right", Qt::CaseInsensitive));
+    
     // 模拟代码执行过程
     // 逐行执行，生成不同状态
     int totalLines = lines.size();
@@ -518,7 +526,7 @@ void CodeExecutor::mockExecution()
             state.arrayData = currentArray;
         }
         // 树操作的可视化
-        else if (isTree) {
+        else if (isTreeOperation) {
             // 模拟树操作
             QMap<QString, QVariant> treeState;
             treeState["type"] = "binary_tree";
@@ -664,7 +672,7 @@ void CodeExecutor::mockExecution()
     
     // 执行完成
     if (isRunning) {
-        emit executionComplete();
+        emit executionFinished();
     }
 }
 
@@ -723,7 +731,7 @@ void CodeExecutor::executeCode()
         
         emit executionFinished();
     } catch (const std::exception &e) {
-        emit executionError(QString("执行代码时出错: %1").arg(e.what()));
+        emit executionError(QString::fromUtf8("执行错误：") + e.what());
     }
 }
 
